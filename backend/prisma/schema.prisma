@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PoolTableStatus {
+  Available
+  Occupied
+  Maintenance
+}
+
+enum PoolTableLightStatus {
+  ON
+  OFF
+}
+
+model PoolTables {
+  id           Int                  @id @default(autoincrement())
+  name         String
+  light_pin    String
+  light_status PoolTableLightStatus @default(OFF)
+  hourly_rate  Decimal              @default(0)
+  status       PoolTableStatus      @default(Available)
+  PoolBookings PoolBookings[]
+
+  @@map("pool_tables")
+}
+
+enum BookingStatus {
+  Reserved
+  InProgress
+  Completed
+  Cancelled
+}
+
+model PoolBookings {
+  id            Int           @id @default(autoincrement())
+  customer_name String?
+  tableId       Int
+  poolTable     PoolTables    @relation(fields: [tableId], references: [id])
+  startTime     DateTime
+  endTime       DateTime?
+  durationHours Float?
+  hourlyRate    Float
+  totalPrice    Float?
+  status        BookingStatus @default(Reserved)
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("pool_bookings")
+}
