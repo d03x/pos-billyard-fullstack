@@ -387,7 +387,7 @@ const TableCard = ({
           className={`shadow-none cursor-pointer rounded-lg overflow-hidden ${cardColors}`}
         >
           <Card.CardHeader className="flex justify-between items-start pb-2">
-            <div>
+            <div className="flex-1">
               <Card.CardTitle className="text-base font-semibold text-gray-800">
                 {item.name}
               </Card.CardTitle>
@@ -399,7 +399,7 @@ const TableCard = ({
                       {activeBooking.customer_name}
                     </span>
                     <div className="mt-1">
-                      <Progress value={progress} className="h-1" />
+                      <Progress color="green" value={progress} className="h-1" />
                       <span className="text-xs">
                         {formatCountdown(activeBooking?.endTime)}
                       </span>
