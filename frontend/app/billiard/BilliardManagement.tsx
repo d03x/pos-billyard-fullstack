@@ -94,8 +94,8 @@ const formatCountdown = (endTime: string) => {
 
 const getTableCardColors = (isAvailable: boolean) => {
   return isAvailable
-    ? "bg-green-50 border-green-300 relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-1 after:h-full after:bg-gradient-to-b after:from-green-200 after:to-green-300"
-    : "bg-red-50 border-red-100 relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-1 after:h-full after:bg-gradient-to-b after:from-red-200 after:to-red-300";
+    ? "bg-white border-green-300 relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-3 after:h-full after:bg-gradient-to-b after:from-green-200 after:to-green-300"
+    : "bg-white border-red-100 relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-3 after:h-full after:bg-gradient-to-b after:from-red-200 after:to-red-300";
 };
 
 // ==================== Sub-Components ====================
@@ -311,7 +311,7 @@ export default function BilliardManagement() {
           </Card.CardAction>
         </Card.CardHeader>
         <Card.CardContent>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
             {data.map((item: any) => (
               <TableCard
                 key={item.id}
@@ -384,7 +384,7 @@ const TableCard = ({
     <Dialog>
       <DialogTrigger asChild>
         <Card.Card
-          className={`shadow-none cursor-pointer rounded-xs overflow-hidden ${cardColors}`}
+          className={`shadow-none cursor-pointer rounded-lg overflow-hidden ${cardColors}`}
         >
           <Card.CardHeader className="flex justify-between items-start pb-2">
             <div>

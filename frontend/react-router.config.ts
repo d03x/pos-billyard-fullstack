@@ -4,5 +4,5 @@ export default {
   // Config options...
   // Server-side render by default, to enable SPA mode set this to `false`
   ssr: false,
-  prerender: true, // pre-render all static routes
+  prerender: false, // pre-render all static routes
 } satisfies Config;
