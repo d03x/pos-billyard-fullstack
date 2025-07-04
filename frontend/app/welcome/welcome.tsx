@@ -38,7 +38,7 @@ export function Welcome() {
   if (!isHydrated || statsLoading || tablesLoading) {
     return (
       <div className="p-6 animate-pulse">
-        <h1 className="text-3xl font-bold text-gray-800">Dashboard Bilyard</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
         <p className="text-gray-500">Memuat data...</p>
       </div>
     );
@@ -52,7 +52,7 @@ export function Welcome() {
     <div className="p-6 space-y-8">
       <div>
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-indigo-600 text-transparent bg-clip-text">
-          Dashboard Bilyard
+          Dashboard
         </h1>
         <p className="text-gray-500">Pantau semua meja dan aktivitas terkini</p>
       </div>
