@@ -4,6 +4,9 @@ import { PrismaClient } from "./generated/prisma/client";
 import { PoolRoutes } from "./routes/PoolRoutes";
 import fastifyCors from "@fastify/cors";
 import { OrderRoute } from "./routes/OrderRoute";
+import { AuthRoute } from "./routes/AuthRoute";
+import { FnbRoute } from "./routes/FnbRoute";
+import { PaymentRoute } from "./routes/PaymentRoute";
 import { setupBookingCronJobs } from "./cron/poolBookingCron";
 const app = Fastify({ logger: true });
 const prisma = new PrismaClient()
@@ -23,6 +26,9 @@ app.register(fastifyCors,{
 app.register(ESPRoute);
 app.register(PoolRoutes);
 app.register(OrderRoute);
+app.register(AuthRoute);
+app.register(FnbRoute);
+app.register(PaymentRoute);
 try {
   await app.listen({ port: 5500,host:"0.0.0.0" }, (errr, address) => {
     if (errr) {
