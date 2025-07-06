@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, useLocation, Outlet } from 'react-router'
+import { useState, useEffect } from 'react'
+import { Link, useLocation, Outlet, useNavigate } from 'react-router'
 import {
   LayoutDashboard,
   Coffee,
@@ -8,12 +8,23 @@ import {
   Settings,
   Menu,
   X,
-  CircleDot
+  CircleDot,
+  User,
+  LogOut
 } from 'lucide-react'
+import { isAuthenticated, getUser, logout } from '../utils/auth'
 
 function Layouts() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+  const user = getUser()
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login')
+    }
+  }, [navigate])
 
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
@@ -22,6 +33,15 @@ function Layouts() {
     { name: 'ESP32 Controls', icon: Cpu, href: '/esp32' },
     { name: 'Settings', icon: Settings, href: '/settings' }
   ]
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
+  if (!isAuthenticated()) {
+    return null // Will redirect to login
+  }
 
   return (
     <div className="flex h-screen font-sans bg-gray-50">
@@ -82,6 +102,39 @@ function Layouts() {
             })}
           </nav>
 
+          {/* User Profile Section */}
+          <div className="p-4 border-t border-gray-200">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="bg-green-100 p-2 rounded-full">
+                <User className="h-4 w-4 text-green-600" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {user?.name || 'User'}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {user?.email}
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-2">
+              <Link
+                to="/profile"
+                className="flex-1 flex items-center justify-center px-3 py-2 text-xs font-medium text-green-600 bg-green-50 rounded-md hover:bg-green-100 transition"
+              >
+                <User className="h-3 w-3 mr-1" />
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex-1 flex items-center justify-center px-3 py-2 text-xs font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition"
+              >
+                <LogOut className="h-3 w-3 mr-1" />
+                Logout
+              </button>
+            </div>
+          </div>
+
           {/* Footer */}
           <div className="p-4 border-t border-gray-200 text-center text-xs text-gray-500">
             Billiard Cafe POS v1.0
@@ -103,7 +156,9 @@ function Layouts() {
         <header className="bg-white shadow px-4 py-3 flex items-center justify-between sticky top-0 z-10">
           <div className="md:hidden" />
           <h1 className="text-lg font-semibold text-gray-800">Cafe & Billiard Admin</h1>
-          <span className="text-sm text-gray-600">👤 Admin</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-600">👤 {user?.name || 'Admin'}</span>
+          </div>
         </header>
 
         {/* Page content */}
