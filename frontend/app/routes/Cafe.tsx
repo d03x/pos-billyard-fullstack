@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react'
 import { 
   Plus, 
@@ -567,8 +566,4 @@ export default function Cafe() {
       )}
     </div>
   )
-=======
-export default function Cafe() {
-  return <h1>Cafe</h1>;
->>>>>>> 350692f395254902afa94fc75a3349ee1aca5cdf
 }
